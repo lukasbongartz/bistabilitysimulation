@@ -21,7 +21,7 @@ def mu(T, h1, h2, h3):
 
 def main():
 
-    st.sidebar.markdown("Lukas Bongartz, 2023")
+
 
     st.sidebar.header('Parameters')
 
@@ -97,6 +97,9 @@ def main():
         axs[i].tick_params(axis = 'both', width = 1.5, length = 5, grid_linewidth = 1.5, direction = 'in')
         axs[i].grid(True,'major',alpha=0.2)
 
+
+    st.sidebar.markdown("Lukas Bongartz, 2023")
+    
     # Adjust spacing between subplots
     fig.subplots_adjust(hspace = 0.5, wspace = 0.5)
     st.pyplot(fig)
