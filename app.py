@@ -25,10 +25,10 @@ def main():
 
     st.sidebar.header('Parameters')
 
-    h1 = st.sidebar.slider(r'$h_1$ ($k_\mathrm{B}$300K)', 0.0, 5.0, 0.0)
-    h2 = st.sidebar.slider(r'$h_2$ ($k_\mathrm{B}$300K)', 0.0, 5.0, 0.0)
-    h3 = st.sidebar.slider(r'$h_3$ ($k_\mathrm{B}$300K)', 0.0, 5.0, 0.0)
-    T = st.sidebar.slider('$T$ (K)', 200.0, 400.0, 300.0)
+    h1 = st.sidebar.slider(r'$h_1\(k_\mathrm{B}\300\mathrm{K})$', 0.0, 5.0, 0.0)
+    h2 = st.sidebar.slider(r'$h_2\(k_\mathrm{B}\300\mathrm{K})$', 0.0, 5.0, 0.0)
+    h3 = st.sidebar.slider(r'$h_3\(k_\mathrm{B}\300\mathrm{K})$', 0.0, 5.0, 0.0)
+    T = st.sidebar.slider('$T\(\mathrm{K})$', 200.0, 400.0, 300.0)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
