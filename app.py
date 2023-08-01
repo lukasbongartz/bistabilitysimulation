@@ -20,14 +20,15 @@ def mu(T, h1, h2, h3):
     return np.diff(G(T, h1, h2, h3)) / np.diff(phi)
 
 def main():
-    #st.title('Interactive Equation Visualization')
 
-    st.sidebar.header('Equation Parameters')
+    st.sidebar.markdown("Lukas Bongartz, 2023")
 
-    h1 = st.sidebar.slider('h1', 0.0, 5.0, 0.0)
-    h2 = st.sidebar.slider('h2', 0.0, 5.0, 0.0)
-    h3 = st.sidebar.slider('h3', 0.0, 5.0, 0.0)
-    T = st.sidebar.slider('T', 200.0, 400.0, 300.0)
+    st.sidebar.header('Parameters')
+
+    h1 = st.sidebar.slider(r'$h_1$ ($k_\mathrm{B}$300K)', 0.0, 5.0, 0.0)
+    h2 = st.sidebar.slider(r'$h_2$ ($k_\mathrm{B}$300K)', 0.0, 5.0, 0.0)
+    h3 = st.sidebar.slider(r'$h_3$ ($k_\mathrm{B}$300K)', 0.0, 5.0, 0.0)
+    T = st.sidebar.slider('$T$ (K)', 200.0, 400.0, 300.0)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
