@@ -97,6 +97,8 @@ def main():
 
 
     st.sidebar.markdown("Lukas Bongartz, 2023")
+    st.beta_set_page_config(page_title='your_title', layout = 'wide', initial_sidebar_state = 'auto')
+
 
     # Adjust spacing between subplots
     fig.subplots_adjust(hspace = 0.5, wspace = 0.5)
