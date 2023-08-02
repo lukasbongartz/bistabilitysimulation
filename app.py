@@ -42,10 +42,10 @@ def main():
     axs[0].set_ylabel(r'$H_\mathrm{mix}$ (meV)', fontsize=14)
 
     y_TS = TS(T)
-    axs[1].plot(phi, y_TS, linewidth=3, color = plt.cm.tab20b(0))
+    axs[1].plot(phi, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
     axs[1].set_title(r'Entropy', fontsize=16)
     axs[1].set_xlabel(r'$\phi$', fontsize=14)
-    axs[1].set_ylabel(r'$TS_\mathrm{mix}$ (meV)', fontsize=14)
+    axs[1].set_ylabel(r'$-TS_\mathrm{mix}$ (meV)', fontsize=14)
 
     y_G = G(T, h1, h2, h3)
     axs[2].plot(phi, y_G, linewidth=3, color = plt.cm.tab20b(0))
