@@ -11,7 +11,7 @@ def H(h1, h2, h3):
     return kB*300*(h1*phi**2 + h2*(1-phi)**2 + h3*(1-phi)*phi)/e*1000
 
 def TS(T):
-    return -kB*(phi*np.log(phi) + (1-phi)*np.log(1-phi))*T/e*1000
+    return -(-kB*(phi*np.log(phi) + (1-phi)*np.log(1-phi))*T/e*1000)
 
 def G(T, h1, h2, h3):
     return H(h1, h2, h3) - TS(T)
@@ -45,7 +45,7 @@ def main():
     axs[1].plot(phi, y_TS, linewidth=3, color = plt.cm.tab20b(0))
     axs[1].set_title(r'Entropy', fontsize=16)
     axs[1].set_xlabel(r'$\phi$', fontsize=14)
-    axs[1].set_ylabel(r'$TS_\mathrm{mix}$ (meV)', fontsize=14)
+    axs[1].set_ylabel(r'$-TS_\mathrm{mix}$ (meV)', fontsize=14)
 
     y_G = G(T, h1, h2, h3)
     axs[2].plot(phi, y_G, linewidth=3, color = plt.cm.tab20b(0))
