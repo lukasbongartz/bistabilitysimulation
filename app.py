@@ -20,7 +20,7 @@ def mu(T, h1, h2, h3):
     return np.diff(G(T, h1, h2, h3)) / np.diff(phi)
 
 def main():
-    st.set_page_config(page_title='your_title', layout = 'wide', initial_sidebar_state = 'auto')
+    st.set_page_config(page_title='Bistability', pageicon = ":brain:", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
 
     h1 = st.sidebar.slider(r'$h_1\,(k_\mathrm{B} 300\mathrm{K}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', 0.0, 5.0, 0.0)
