@@ -50,7 +50,7 @@ def main():
     y_G = G(T, h1, h2, h3)
     axs[2].plot(phi, y_G, linewidth=3, color = plt.cm.tab20b(0))
     axs[2].set_title(r'Gibbs Free Energy', fontsize=16)
-    axs[2].set_xlabel('phi', fontsize=14)
+    axs[2].set_xlabel(r'$\phi$', fontsize=14)
     axs[2].set_ylabel(r'$G$ (meV)', fontsize=14)
 
 
