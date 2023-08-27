@@ -14,7 +14,7 @@ def TS(phi, T):
     return -kB*(phi*np.log(phi) + (1-phi)*np.log(1-phi))*T/e*1000
 
 def G(phi, T, h1, h2, h3, V):
-    return H(phi, h1, h2, h3) - TS(phi, T)  - V*phi/1000000
+    return H(phi, h1, h2, h3) - TS(phi, T)  - V*phi/1000
 
 def mu(phi, T, h1, h2, h3, V):
     return (np.diff(G(phi, T, h1, h2, h3, V))/np.diff(phi))
