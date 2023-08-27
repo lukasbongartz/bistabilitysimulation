@@ -27,7 +27,7 @@ def main():
     h2 = st.sidebar.slider(r'$h_2\,(k_\mathrm{B} 300\mathrm{K}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -5.0, 5.0, 0.0)
     h3 = st.sidebar.slider(r'$h_3\,(k_\mathrm{B} 300\mathrm{K}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -5.0, 5.0, 0.0)
     T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)
-    V = st.sidebar.slider(r'$V_\text{eff}\,(µeV)', -5, 5, 0.0)
+    V = st.sidebar.slider(r'$\gamma (µeV)', -5, 5, 0.0)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
