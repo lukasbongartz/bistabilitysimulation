@@ -5,19 +5,19 @@ import matplotlib.gridspec as gridspec
 
 kB=1.380e-23
 e=1.602e-19
-phi = np.arange(0,1.001,0.001)
+phi_array = np.arange(0,1.001,0.001)
 
-def H(h1, h2, h3):
-    return kB*300*(h1*phi**2 + h2*(1-phi)**2 + h3*(1-phi)*phi)/e*1000
+def H(phi, h1, h2, h3):
+    return kB*300*(h1*phi**2 + h2*(1-phi)**2 + h3*(1-phi)*phi)
 
-def TS(T):
+def TS(phi, T):
     return -kB*(phi*np.log(phi) + (1-phi)*np.log(1-phi))*T/e*1000
 
-def G(T, h1, h2, h3):
-    return H(h1, h2, h3) - TS(T)
+def G(phi, T, h1, h2, h3, V):
+    return H(phi, h1, h2, h3) - TS(phi, T)  - V*phi
 
-def mu(T, h1, h2, h3):
-    return np.diff(G(T, h1, h2, h3)) / np.diff(phi)
+def mu(phi, T, h1, h2, h3, V):
+    return (np.diff(G(phi, T, h1, h2, h3, V))/np.diff(phi))
 
 def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
@@ -27,6 +27,7 @@ def main():
     h2 = st.sidebar.slider(r'$h_2\,(k_\mathrm{B} 300\mathrm{K}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -5.0, 5.0, 0.0)
     h3 = st.sidebar.slider(r'$h_3\,(k_\mathrm{B} 300\mathrm{K}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -5.0, 5.0, 0.0)
     T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)
+    V = st.sidebar.slider(r'$V_\mathrm{eff}\,(meV)', -0.5, 0.5, 0.0)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
@@ -35,34 +36,34 @@ def main():
 
     axs = [fig.add_subplot(gs[i, j]) for i in range(2) for j in range(3)]
 
-    y_H = H(h1, h2, h3)
-    axs[0].plot(phi, y_H, linewidth=3, color = plt.cm.tab20b(0))
+    y_H = H(phi_array, h1, h2, h3)
+    axs[0].plot(phi_array, y_H, linewidth=3, color = plt.cm.tab20b(0))
     axs[0].set_title(r'Enthalpy', fontsize=16)
     axs[0].set_xlabel(r'$\phi$', fontsize=14)
     axs[0].set_ylabel(r'$H_\mathrm{mix}$ (meV)', fontsize=14)
 
-    y_TS = TS(T)
-    axs[1].plot(phi, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
+    y_TS = TS(phi_array, T)
+    axs[1].plot(phi_array, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
     axs[1].set_title(r'Entropy', fontsize=16)
     axs[1].set_xlabel(r'$\phi$', fontsize=14)
     axs[1].set_ylabel(r'$-TS_\mathrm{mix}$ (meV)', fontsize=14)
 
-    y_G = G(T, h1, h2, h3)
-    axs[2].plot(phi, y_G, linewidth=3, color = plt.cm.tab20b(0))
+    y_G = G(phi_array, T, h1, h2, h3, V)
+    axs[2].plot(phi_array, y_G, linewidth=3, color = plt.cm.tab20b(0))
     axs[2].set_title(r'Gibbs Free Energy', fontsize=16)
     axs[2].set_xlabel(r'$\phi$', fontsize=14)
     axs[2].set_ylabel(r'$G$ (meV)', fontsize=14)
 
 
-    y_mu = mu(T, h1, h2, h3)
-    slope = np.diff(y_mu) / np.diff(phi[:-1])  # calculate slope of mu vs phi
+    y_mu = mu(phi_array, T, h1, h2, h3, V)
+    slope = np.diff(y_mu) / np.diff(phi_array[:-1])  # calculate slope of mu vs phi
     slope = np.append(slope, 0)  # append a 0 at the end to match the shape of phi and y_mu
 
     # Calculate the indices where the slope changes sign
     sign_change_indices = np.where(np.diff(np.sign(slope)))[0]
 
     # Split the indices based on the above condition
-    segments_phi = np.split(phi[:-1], sign_change_indices+1)
+    segments_phi = np.split(phi_array[:-1], sign_change_indices+1)
     segments_mu = np.split(y_mu, sign_change_indices+1)
 
     for seg_phi, seg_mu in zip(segments_phi, segments_mu):
