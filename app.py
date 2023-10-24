@@ -97,9 +97,9 @@ def main():
 
     if st.session_state['second_mode']:
         # Update default values when second mode is activated
-        st.session_state['h1'] = 2.0
-        st.session_state['h2'] = -2.0
-        st.session_state['h3'] = 70.0
+        st.session_state['h1'] = 1.0
+        st.session_state['h2'] = 4.0
+        st.session_state['h3'] = 75.0
         st.session_state['mu0'] = 0.0
         st.session_state['mup'] = 20.0
 
