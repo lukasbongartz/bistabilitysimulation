@@ -80,19 +80,6 @@ def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
 
-    # Toggle for second mode
-    st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
-
-    # Create a placeholder for the temperature slider
-    T_slider_placeholder = st.sidebar.empty()
-
-    h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, 0.0)
-    h2 = st.sidebar.slider(r'$h_2\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
-    h3 = st.sidebar.slider(r'$h_3\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
-    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
-    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
-
-
     # Initialize session state for the sliders if they don't exist
     if 'second_mode' not in st.session_state:
         st.session_state['second_mode'] = False
@@ -102,6 +89,12 @@ def main():
         st.session_state['mu0'] = 0.0
         st.session_state['mup'] = 0.0
 
+    # Toggle for second mode
+    st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
+
+    # Create a placeholder for the temperature slider
+    T_slider_placeholder = st.sidebar.empty()
+
     if st.session_state['second_mode']:
         # Update default values when second mode is activated
         st.session_state['h1'] = 0.0
@@ -109,6 +102,16 @@ def main():
         st.session_state['h3'] = 70.0
         st.session_state['mu0'] = 0.0
         st.session_state['mup'] = 50.0
+
+    # Now create the sliders with the possibly updated default values from session_state
+    h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, st.session_state['h1'])
+    h2 = st.sidebar.slider(r'$h_2\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h2'])
+    h3 = st.sidebar.slider(r'$h_3\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h3'])
+    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', 0.0, 500.0, st.session_state['mu0'])
+    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', 0.0, 500.0, st.session_state['mup'])
+
+
+    if st.session_state['second_mode']:
         alpha_init = 0.05
         alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
         T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 263.15, disabled=True)  # Disable the temperature slider
