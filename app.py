@@ -96,7 +96,7 @@ def main():
 
     alpha_init = 1.0
     if st.session_state['second_mode']:
-        alpha = st.sidebar.slider('alpha', 0.0, 1.0, alpha_init)
+        alpha = st.sidebar.slider(r'$\alpha$', 0.0, 1.0, alpha_init)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
