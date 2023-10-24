@@ -17,18 +17,18 @@ def G(phi, T, h1, h2, h3, mu0, mup):
     return H(phi, h1, h2, h3, mu0, mup) - TS(phi, T)
 
 def mu(phi, T, h1, h2, h3, mu0, mup):
-    return (np.diff(G(T, h1, h2, h3, mu0, mup))/np.diff(phi))
+    return (np.diff(G(phi, T, h1, h2, h3, mu0, mup))/np.diff(phi))
 
 def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
 
-    h1 = st.sidebar.slider(r'$h_1\,(meV): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100, 100, 0.0)
-    h2 = st.sidebar.slider(r'$h_2\,(meV): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100, 100, 0.0)
-    h3 = st.sidebar.slider(r'$h_3\,(meV): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100, 100, 0.0)
+    h1 = st.sidebar.slider(r'$h_1\,(meV): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, 0.0)
+    h2 = st.sidebar.slider(r'$h_2\,(meV): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
+    h3 = st.sidebar.slider(r'$h_3\,(meV): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
     T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)
-    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(meV):$', 0, 500, 0.0)
-    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(meV):$', 0, 500, 0.0)
+    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(meV):$', 0.0, 500.0, 0.0)
+    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(meV):$', 0.0, 500.0, 0.0)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
