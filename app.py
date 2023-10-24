@@ -46,7 +46,7 @@ def main():
     axs[0].plot(phi_array, y_H, linewidth=3, color = plt.cm.tab20b(0))
     axs[0].set_title(r'Enthalpy', fontsize=16)
     axs[0].set_xlabel(r'$\phi$', fontsize=14)
-    axs[0].set_ylabel(r'$H_\mathrm{mix}$ (meV)', fontsize=14)
+    axs[0].set_ylabel(r'$H_0 + H_\mathrm{mix}$ (meV)', fontsize=14)
 
     y_TS = TS(phi_array, T)
     axs[1].plot(phi_array, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
