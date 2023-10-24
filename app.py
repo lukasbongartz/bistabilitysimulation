@@ -97,11 +97,11 @@ def main():
 
     if st.session_state['second_mode']:
         # Update default values when second mode is activated
-        st.session_state['h1'] = 0.0
-        st.session_state['h2'] = 0.0
+        st.session_state['h1'] = 2.0
+        st.session_state['h2'] = -2.0
         st.session_state['h3'] = 70.0
         st.session_state['mu0'] = 0.0
-        st.session_state['mup'] = 50.0
+        st.session_state['mup'] = 20.0
 
     # Now create the sliders with the possibly updated default values from session_state
     h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, st.session_state['h1'])
