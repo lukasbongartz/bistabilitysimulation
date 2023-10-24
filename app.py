@@ -96,7 +96,7 @@ def main():
 
     alpha_init = 1.0
     if st.session_state['second_mode']:
-        alpha = st.sidebar.slider(r'$\alpha$', 0.0, 1.0, alpha_init)
+        alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
@@ -155,7 +155,7 @@ def main():
 
     if st.session_state['second_mode']:
         axs[5].plot(Id_ex(alpha)[0], Id_ex(alpha)[1], linestyle='-',
-                    linewidth=1.5, marker='o', markersize=3, color=plt.cm.tab20b(0), alpha=0.5)
+                    linewidth=2, marker='o', markersize=4, color=plt.cm.tab20b(0), alpha=0.8)
         
 
     # Remove the sixth plot
