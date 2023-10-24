@@ -72,7 +72,7 @@ def mu(phi, T, h1, h2, h3, mu0, mup):
     return (np.diff(G(phi, T, h1, h2, h3, mu0, mup))/np.diff(phi))
 
 def Id_ex(alpha):
-    Vg_T = (alpha*V_ex)*1000, 
+    Vg_T = (alpha*V_ex) 
     Id_T = -I_ex
     return np.array(Vg_T).T, np.array(Id_T)
 
