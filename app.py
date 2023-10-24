@@ -100,8 +100,8 @@ def main():
     # Use the placeholder to display the temperature slider, disabled or not based on second_mode
     if st.session_state['second_mode']:
         alpha_init = 1.0
-        alpha = st.sidebar.slider('alpha', 0.0, 1.0, alpha_init)
-        T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 300.0, disabled=True)  # Disable the temperature slider
+        alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
+        T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 263.15, disabled=True)  # Disable the temperature slider
     else:
         T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)  # Enable the temperature slider when not in second mode
 
