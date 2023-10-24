@@ -82,7 +82,7 @@ def main():
     gs = gridspec.GridSpec(2, 3, figure=fig)
 
     cmap = plt.cm.coolwarm.reversed()
-    line_colors = cmap(np.linspace(0,1,len(temperature)))
+    line_colors = cmap(np.linspace(0,1,9))
 
     axs = [fig.add_subplot(gs[i, j]) for i in range(2) for j in range(3)]
 
@@ -137,7 +137,7 @@ def main():
         # Assuming temperature and V_shift_init are defined somewhere in your code
         temperature = 300  # Example value, replace with your actual temperature
         V_shift_init = 0  # Example value, replace with your actual V_shift_init value
-        
+
         axs[5].plot(Id_ex(alpha_init, Id_ex_T, V_shift_init)[0],Id_ex(alpha_init, Id_ex_T, V_shift_init)[1], linestyle='-',
         linewidth=1.5, marker='o', markersize=3, color = line_colors[Id_ex(alpha_init, Id_ex_T, V_shift_init)[2]], alpha = alpha) 
 
