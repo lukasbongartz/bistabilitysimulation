@@ -96,7 +96,11 @@ def main():
 
     alpha_init = 1.0
     if st.session_state['second_mode']:
-        alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
+        alpha = st.sidebar.slider('alpha', 0.0, 1.0, alpha_init)
+        T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 263.15, disabled=True)  # Disable the temperature slider
+    else:
+        T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)  # Enable the temperature slider when not in second mode
+
 
     font = {'size' : 14} 
     plt.rc('font', **font)
@@ -149,13 +153,13 @@ def main():
     axs[4].set_xlabel(r'$\phi$', fontsize=14)
     axs[4].set_ylabel(r'${\partial G}/{\partial \phi} = \mu$ (meV)', fontsize=14)
 
-    axs[5].set_title("Theor. Transfer Curve", fontsize=16)
+    axs[5].set_title("Transfer Curve", fontsize=16)
     axs[5].set_xlabel(r'$V_\mathrm{GS}$ (mV)', fontsize=14)
     axs[5].set_ylabel(r'$-I_\mathrm{D}$ (norm.)', fontsize=14)
 
     if st.session_state['second_mode']:
         axs[5].plot(Id_ex(alpha)[0], Id_ex(alpha)[1], linestyle='-',
-                    linewidth=2, marker='o', markersize=4, color=plt.cm.tab20b(0), alpha=0.8)
+                    linewidth=2, marker='o', markersize=4, color=plt.cm.tab20b(0), alpha=0.6)
         
 
     # Remove the sixth plot
