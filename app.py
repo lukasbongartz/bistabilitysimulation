@@ -80,10 +80,30 @@ def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
 
+    # Initialize session state for the sliders if they don't exist
+    if 'second_mode' not in st.session_state:
+        st.session_state['second_mode'] = False
+        st.session_state['h1'] = 0.0
+        st.session_state['h2'] = 0.0
+        st.session_state['h3'] = 0.0
+        st.session_state['mu0'] = 0.0
+        st.session_state['mup'] = 0.0
+
+    # Toggle for second mode
+    st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
+
+    if st.session_state['second_mode']:
+        # Update default values when second mode is activated
+        st.session_state['h1'] = 0.0
+        st.session_state['h2'] = 0.0
+        st.session_state['h3'] = 70.0
+        st.session_state['mu0'] = 0.0
+        st.session_state['mup'] = 50.0
+
+
     h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, 0.0)
     h2 = st.sidebar.slider(r'$h_2\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
     h3 = st.sidebar.slider(r'$h_3\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
-    #T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)
     mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
     mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
 
@@ -99,7 +119,7 @@ def main():
 
     # Use the placeholder to display the temperature slider, disabled or not based on second_mode
     if st.session_state['second_mode']:
-        alpha_init = 1.0
+        alpha_init = 0.05
         alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
         T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 263.15, disabled=True)  # Disable the temperature slider
     else:
@@ -120,7 +140,7 @@ def main():
     axs[0].plot(phi_array, y_H, linewidth=3, color = plt.cm.tab20b(0))
     axs[0].set_title(r'Enthalpy', fontsize=16)
     axs[0].set_xlabel(r'$\phi$', fontsize=14)
-    axs[0].set_ylabel(r'$H_\mathrm{mix}$ (meV)', fontsize=14)
+    axs[0].set_ylabel(r'$H_0 + H_\mathrm{mix}$ (meV)', fontsize=14)
 
     y_TS = TS(phi_array, T)
     axs[1].plot(phi_array, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
