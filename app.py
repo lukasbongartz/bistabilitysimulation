@@ -86,11 +86,17 @@ def main():
     T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)
     mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
     mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
-    second_mode = st.sidebar.button('Show Experimental Data')
 
-    alpha_init = 1.0 
-    if second_mode:
-        alpha = st.sidebar.slider('alpha', 0.0, 1.0, alpha_init) 
+    # Initialize session state for second_mode if it doesn't exist
+    if 'second_mode' not in st.session_state:
+        st.session_state['second_mode'] = False
+
+    # Toggle for second mode
+    st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
+
+    alpha_init = 1.0
+    if st.session_state['second_mode']:
+        alpha = st.sidebar.slider('alpha', 0.0, 1.0, alpha_init)
 
     font = {'size' : 14} 
     plt.rc('font', **font)
@@ -147,10 +153,10 @@ def main():
     axs[5].set_xlabel(r'$V_\mathrm{GS}$ (mV)', fontsize=14)
     axs[5].set_ylabel(r'$-I_\mathrm{D}$ (norm.)', fontsize=14)
 
-    if second_mode:
-
+    if st.session_state['second_mode']:
         axs[5].plot(Id_ex(alpha)[0], Id_ex(alpha)[1], linestyle='-',
-        linewidth=1.5, marker='o', markersize=3, color = plt.cm.tab20b(0), alpha = 0.5) 
+                    linewidth=1.5, marker='o', markersize=3, color=plt.cm.tab20b(0), alpha=0.5)
+        
 
     # Remove the sixth plot
     fig.delaxes(axs[3])
