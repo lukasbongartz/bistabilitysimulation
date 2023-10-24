@@ -2,10 +2,45 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import pandas as pd
+
+
+
+File = pd.read_csv('In Nitrogen/Data/01122021/Batlogg.txt', delimiter='\t',skiprows=[1]).to_numpy()
+temperature = np.arange(303.15,258.15,-5)
+temperature_C = temperature[:]-273.15
+temperature_str = np.arange(303,258,-5).astype(str)
+length = 122
+
+VD_list=[-0.1]   
+VD_list_str=['01']
+
+for i in np.arange(len(temperature)):
+    exec('T_{0}_all = File[i*length:(i+1)*length,:]'.format(temperature_str[i]))
+V_G_data = np.empty([len(T_303_all),len(temperature)])
+for i in np.arange(len(temperature)):
+    exec('V_G_data[:,i] = T_{0}_all[:,7]'.format(temperature_str[i]))    
+I_D_data = np.empty([len(T_303_all),len(temperature)])
+for i in np.arange(len(temperature)):
+    exec('I_D_data[:,i] = -abs(T_{0}_all[:,4])'.format(temperature_str[i]))
+I_G_data = np.empty([len(T_303_all),len(temperature)])
+for i in np.arange(len(temperature)):
+    exec('I_G_data[:,i] = -abs(T_{0}_all[:,8])'.format(temperature_str[i])) 
+
+
+# Normalise drain current
+for i in np.arange(len(temperature)):
+    I_D_data[:,i] = abs(I_D_data[:,i])-min(abs(I_D_data[:,i]))
+    I_D_data[:,i] = -I_D_data[:,i]/max(I_D_data[:,i])
+
+
+
 
 kB=1.380e-23
 e=1.602e-19
 phi_array = np.arange(0,1.001,0.001)
+
+Id_ex_T = 263.15
 
 def H(phi, h1, h2, h3, mu0, mup):
     return phi*mu0 + (1-phi)*mup + (h1*phi**2 + h2*(1-phi)**2 + h3*(1-phi)*phi)
@@ -19,21 +54,35 @@ def G(phi, T, h1, h2, h3, mu0, mup):
 def mu(phi, T, h1, h2, h3, mu0, mup):
     return (np.diff(G(phi, T, h1, h2, h3, mu0, mup))/np.diff(phi))
 
+def Id_ex(alpha, T, V_shift):
+    T_counter = int(np.where(T == temperature)[0])
+    Vg_T = (alpha*V_G_data[:,T_counter]+V_shift/1000)*1000, 
+    Id_T = -I_D_data[:,T_counter]
+    return np.array(Vg_T).T, np.array(Id_T), T_counter
+
 def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
 
-    h1 = st.sidebar.slider(r'$h_1\,(meV): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, 0.0)
-    h2 = st.sidebar.slider(r'$h_2\,(meV): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
-    h3 = st.sidebar.slider(r'$h_3\,(meV): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
+    h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, 0.0)
+    h2 = st.sidebar.slider(r'$h_2\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
+    h3 = st.sidebar.slider(r'$h_3\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, 0.0)
     T = st.sidebar.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)
-    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(meV):$', 0.0, 500.0, 0.0)
-    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(meV):$', 0.0, 500.0, 0.0)
+    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
+    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', 0.0, 500.0, 0.0)
+    second_mode = st.sidebar.button('Show Experimental Data')
+
+    alpha_init = 0  # Default value
+    if second_mode:
+        alpha = st.sidebar.slider('alpha', 0.0, 1.0, 0.5)  # Adjust min, max, default values as needed
 
     font = {'size' : 14} 
     plt.rc('font', **font)
     fig = plt.figure(figsize=(15, 10))
     gs = gridspec.GridSpec(2, 3, figure=fig)
+
+    cmap = plt.cm.coolwarm.reversed()
+    line_colors = cmap(np.linspace(0,1,len(temperature)))
 
     axs = [fig.add_subplot(gs[i, j]) for i in range(2) for j in range(3)]
 
@@ -83,6 +132,14 @@ def main():
     axs[5].set_title("Theor. Transfer Curve", fontsize=16)
     axs[5].set_xlabel(r'$V_\mathrm{GS}$ (mV)', fontsize=14)
     axs[5].set_ylabel(r'$-I_\mathrm{D}$ (norm.)', fontsize=14)
+
+    if second_mode:
+        # Assuming temperature and V_shift_init are defined somewhere in your code
+        temperature = 300  # Example value, replace with your actual temperature
+        V_shift_init = 0  # Example value, replace with your actual V_shift_init value
+        
+        axs[5].plot(Id_ex(alpha_init, Id_ex_T, V_shift_init)[0],Id_ex(alpha_init, Id_ex_T, V_shift_init)[1], linestyle='-',
+        linewidth=1.5, marker='o', markersize=3, color = line_colors[Id_ex(alpha_init, Id_ex_T, V_shift_init)[2]], alpha = alpha) 
 
     # Remove the sixth plot
     fig.delaxes(axs[3])
