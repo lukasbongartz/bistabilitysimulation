@@ -6,32 +6,76 @@ import pandas as pd
 
 
 
-File = pd.read_csv('In Nitrogen/Data/01122021/Batlogg.txt', delimiter='\t',skiprows=[1]).to_numpy()
-temperature = np.arange(303.15,258.15,-5)
-temperature_C = temperature[:]-273.15
-temperature_str = np.arange(303,258,-5).astype(str)
-length = 122
+#File = pd.read_csv('In Nitrogen/Data/01122021/Batlogg.txt', delimiter='\t',skiprows=[1]).to_numpy()
+#temperature = np.arange(303.15,258.15,-5)
+#temperature_C = temperature[:]-273.15
+#temperature_str = np.arange(303,258,-5).astype(str)
+#length = 122
+#
+#VD_list=[-0.1]   
+#VD_list_str=['01']
 
-VD_list=[-0.1]   
-VD_list_str=['01']
+V_ex = np.array([-1500., -1450., -1400., -1350., -1300., -1250., -1200., -1150., -1100., -1050.,
+     -1000., -950., -900., -850., -800., -750., -700., -650., -600., -550., -500.,
+     -450., -400., -350., -300., -250., -200., -150., -100., -50., 0., 50., 100.,
+     150., 200., 250., 300., 350., 400., 450., 500., 550., 600., 650., 700., 750.,
+     800., 850., 900., 950., 1000., 1050., 1100., 1150., 1200., 1250., 1300., 1350.,
+     1400., 1450., 1500., 1500., 1450., 1400., 1350., 1300., 1250., 1200., 1150.,
+     1100., 1050., 1000., 950., 900., 850., 800., 750., 700., 650., 600., 550., 500.,
+     450., 400., 350., 300., 250., 200., 150., 100., 50., 0., -50., -100., -150., -200.,
+     -250., -300., -350., -400., -450., -500., -550., -600., -650., -700., -750., -800.,
+     -850., -900., -950., -1000., -1050., -1100., -1150., -1200., -1250., -1300., -1350.,
+     -1400., -1450., -1500.])
+I_ex = np.array([9.84324987e-01, 9.91697477e-01, 9.95895805e-01, 9.98411036e-01,
+ 9.99691244e-01, 1.00000000e+00, 9.99634764e-01, 9.98554118e-01,
+ 9.96995277e-01, 9.94724791e-01, 9.92239682e-01, 9.89046694e-01,
+ 9.85300204e-01, 9.81154590e-01, 9.75822902e-01, 9.69700497e-01,
+ 9.63314520e-01, 9.56085112e-01, 9.47236618e-01, 9.38101960e-01,
+ 9.27039460e-01, 9.12757614e-01, 8.97907205e-01, 8.79773440e-01,
+ 8.60946857e-01, 8.34732723e-01, 8.05645652e-01, 7.71042392e-01,
+ 7.32372590e-01, 6.86872504e-01, 6.37061131e-01, 5.77230249e-01,
+ 5.12402793e-01, 4.49947486e-01, 3.81358479e-01, 3.10117559e-01,
+ 2.57860235e-01, 2.01910266e-01, 1.56066783e-01, 1.12767525e-01,
+ 8.03835424e-02, 5.44634792e-02, 3.41971897e-02, 2.19377706e-02,
+ 1.23891159e-02, 5.58865284e-03, 2.23856780e-03, 1.04144939e-03,
+ 4.28470903e-04, 1.61025735e-04, 6.61288363e-05, 2.59990331e-05,
+ 1.31222527e-05, 1.01645965e-05, 9.68892403e-06, 9.88392978e-06,
+ 1.04056521e-05, 1.01894099e-05, 1.02510858e-05, 1.04777579e-05,
+ 1.07304106e-05, 1.05532525e-05, 9.82873024e-06, 9.30648082e-06,
+ 8.87185033e-06, 8.52483874e-06, 8.16208814e-06, 7.81650738e-06,
+ 7.46618232e-06, 7.06995805e-06, 6.67222766e-06, 6.26161988e-06,
+ 5.93015906e-06, 5.53246632e-06, 5.17585318e-06, 4.82793792e-06,
+ 4.49015137e-06, 4.03981950e-06, 3.52705868e-06, 3.09408869e-06,
+ 2.69253650e-06, 2.49400641e-06, 2.25902807e-06, 1.90052097e-06,
+ 1.36664803e-06, 7.01749590e-07, 1.26623833e-07, 0.00000000e+00,
+ 1.47630158e-06, 7.86812987e-06, 2.69495496e-05, 7.12259455e-05,
+ 1.80559444e-04, 4.46194248e-04, 8.55672431e-04, 1.73592439e-03,
+ 3.49044521e-03, 7.07904046e-03, 1.17842178e-02, 2.01285736e-02,
+ 3.37324366e-02, 5.68390175e-02, 8.68463318e-02, 1.29032939e-01,
+ 1.83364199e-01, 2.44669578e-01, 3.15628853e-01, 3.96687083e-01,
+ 4.63171278e-01, 5.59066362e-01, 6.34237143e-01, 6.88736336e-01,
+ 7.37621442e-01, 7.80493337e-01, 8.17634420e-01, 8.53965960e-01,
+ 8.81644803e-01, 9.03325496e-01, 9.23206367e-01, 9.39031993e-01,
+ 9.52997553e-01, 9.64327390e-01])
 
-for i in np.arange(len(temperature)):
-    exec('T_{0}_all = File[i*length:(i+1)*length,:]'.format(temperature_str[i]))
-V_G_data = np.empty([len(T_303_all),len(temperature)])
-for i in np.arange(len(temperature)):
-    exec('V_G_data[:,i] = T_{0}_all[:,7]'.format(temperature_str[i]))    
-I_D_data = np.empty([len(T_303_all),len(temperature)])
-for i in np.arange(len(temperature)):
-    exec('I_D_data[:,i] = -abs(T_{0}_all[:,4])'.format(temperature_str[i]))
-I_G_data = np.empty([len(T_303_all),len(temperature)])
-for i in np.arange(len(temperature)):
-    exec('I_G_data[:,i] = -abs(T_{0}_all[:,8])'.format(temperature_str[i])) 
 
-
-# Normalise drain current
-for i in np.arange(len(temperature)):
-    I_D_data[:,i] = abs(I_D_data[:,i])-min(abs(I_D_data[:,i]))
-    I_D_data[:,i] = -I_D_data[:,i]/max(I_D_data[:,i])
+#for i in np,.arange(len(tem,perature)):
+#    exec('T_{0}_all = File[i*length:(i+1)*length,:]'.format(temperature_str[i]))
+#V_G_data = np.empty([len(T_303_all),len(temperature)])
+#for i in np.arange(len(temperature)):
+#    exec('V_G_data[:,i] = T_{0}_all[:,7]'.format(temperature_str[i]))    
+#I_D_data = np.empty([len(T_303_all),len(temperature)])
+#for i in np.arange(len(temperature)):
+#    exec('I_D_data[:,i] = -abs(T_{0}_all[:,4])'.format(temperature_str[i]))
+#I_G_data = np.empty([len(T_303_all),len(temperature)])
+#for i in np.arange(len(temperature)):
+#    exec('I_G_data[:,i] = -abs(T_{0}_all[:,8])'.format(temperature_str[i])) 
+#
+#
+## Normalise drain current
+#for i in np.arange(len(temperature)):
+#    I_D_data[:,i] = abs(I_D_data[:,i])-min(abs(I_D_data[:,i]))
+#    I_D_data[:,i] = -I_D_data[:,i]/max(I_D_data[:,i])
 
 
 
@@ -40,7 +84,7 @@ kB=1.380e-23
 e=1.602e-19
 phi_array = np.arange(0,1.001,0.001)
 
-Id_ex_T = 263.15
+#Id_ex_T = 263.15
 
 def H(phi, h1, h2, h3, mu0, mup):
     return phi*mu0 + (1-phi)*mup + (h1*phi**2 + h2*(1-phi)**2 + h3*(1-phi)*phi)
@@ -138,8 +182,8 @@ def main():
         temperature = 300  # Example value, replace with your actual temperature
         V_shift_init = 0  # Example value, replace with your actual V_shift_init value
 
-        axs[5].plot(Id_ex(alpha_init, Id_ex_T, V_shift_init)[0],Id_ex(alpha_init, Id_ex_T, V_shift_init)[1], linestyle='-',
-        linewidth=1.5, marker='o', markersize=3, color = line_colors[Id_ex(alpha_init, Id_ex_T, V_shift_init)[2]], alpha = alpha) 
+        axs[5].plot(V_ex, I_ex, linestyle='-',
+        linewidth=1.5, marker='o', markersize=3, color = plt.cm.tab20b(3), alpha = alpha) 
 
     # Remove the sixth plot
     fig.delaxes(axs[3])
