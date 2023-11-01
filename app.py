@@ -107,8 +107,8 @@ def main():
     h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, st.session_state['h1'])
     h2 = st.sidebar.slider(r'$h_2\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h2'])
     h3 = st.sidebar.slider(r'$h_3\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h3'])
-    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', 0.0, 500.0, st.session_state['mu0'])
-    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', 0.0, 500.0, st.session_state['mup'])
+    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mu0'])
+    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mup'])
 
 
     if st.session_state['second_mode']:
@@ -117,27 +117,6 @@ def main():
         T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 400.0, 263.15, disabled=True)  # Disable the temperature slider
     else:
         T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 400.0, 300.0)  # Enable the temperature slider when not in second mode
-
-
-
- #   # Create a placeholder for the temperature slider
- #   T_slider_placeholder = st.sidebar.empty()
-
- #   # Initialize session state for second_mode if it doesn't exist
- #   if 'second_mode' not in st.session_state:
- #       st.session_state['second_mode'] = False
-
- #   # Toggle for second mode
- #   st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
-
- #   # Use the placeholder to display the temperature slider, disabled or not based on second_mode
- #   if st.session_state['second_mode']:
- #       alpha_init = 0.05
- #       alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
- #       T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 263.15, disabled=True)  # Disable the temperature slider
- #   else:
- #       T = T_slider_placeholder.slider(r'$T\,(K)$', 200.0, 400.0, 300.0)  # Enable the temperature slider when not in second mode
-
 
     font = {'size' : 14} 
     plt.rc('font', **font)
