@@ -101,7 +101,7 @@ def main():
         st.session_state['h_uu'] = 4.0
         st.session_state['h_ud'] = 75.0
         st.session_state['mud'] = 0.0
-        st.session_state['muu'] = 20.0
+        st.session_state['muu'] = 0.0 #20.0
 
     # Now create the sliders with the possibly updated default values from session_state
     h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_dd'])
