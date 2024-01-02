@@ -104,11 +104,11 @@ def main():
         st.session_state['muu'] = 20.0
 
     # Now create the sliders with the possibly updated default values from session_state
-    h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, st.session_state['h_dd'])
-    h_uu = st.sidebar.slider(r'$h_{uu}\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h_uu'])
-    h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h_ud'])
-    mud = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
-    muu = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
+    h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV})', -100.0, 100.0, st.session_state['h_dd'])
+    h_uu = st.sidebar.slider(r'$h_{uu}\,(\mathrm{meV})', -100.0, 100.0, st.session_state['h_uu'])
+    h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV})', -100.0, 100.0, st.session_state['h_ud'])
+    mud = st.sidebar.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
+    muu = st.sidebar.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
 
 
     if st.session_state['second_mode']:
