@@ -57,19 +57,19 @@ I_ex = -I_ex/max(I_ex)
 
 kB=1.380e-23
 e=1.602e-19
-psi_array = np.arange(0,1.001,0.001)
+phi_array = np.arange(0,1.001,0.001)
 
-def H(psi, h_dd, h_uu, h_ud, mud, muu):
-    return psi*mud + (1-psi)*muu + 0.5*(h_dd*psi**2 + h_uu*(1-psi)**2 + 2*h_ud*(1-psi)*psi)
+def H(phi, h1, h2, h3, mu0, mup):
+    return phi*mu0 + (1-phi)*mup + (h1*phi**2 + h2*(1-phi)**2 + h3*(1-phi)*phi)
 
-def TS(psi, T):
-    return -kB*(psi*np.log(psi) + (1-psi)*np.log(1-psi))*T/e*1000
+def TS(phi, T):
+    return -kB*(phi*np.log(phi) + (1-phi)*np.log(1-phi))*T/e*1000
 
-def G(psi, T, h_dd, h_uu, h_ud, mud, muu):
-    return H(psi, h_dd, h_uu, h_ud, mud, muu) - TS(psi, T)
+def G(phi, T, h1, h2, h3, mu0, mup):
+    return H(phi, h1, h2, h3, mu0, mup) - TS(phi, T)
 
-def mu(psi, T, h_dd, h_uu, h_ud, mud, muu):
-    return (np.diff(G(psi, T, h_dd, h_uu, h_ud, mud, muu))/np.diff(psi))
+def mu(phi, T, h1, h2, h3, mu0, mup):
+    return (np.diff(G(phi, T, h1, h2, h3, mu0, mup))/np.diff(phi))
 
 def Id_ex(alpha):
     Vg_T = (alpha*V_ex) 
@@ -83,11 +83,11 @@ def main():
     # Initialize session state for the sliders if they don't exist
     if 'second_mode' not in st.session_state:
         st.session_state['second_mode'] = False
-        st.session_state['h_dd'] = 0.0
-        st.session_state['h_uu'] = 0.0
-        st.session_state['h_ud'] = 0.0
-        st.session_state['mud'] = 0.0
-        st.session_state['muu'] = 0.0
+        st.session_state['h1'] = 0.0
+        st.session_state['h2'] = 0.0
+        st.session_state['h3'] = 0.0
+        st.session_state['mu0'] = 0.0
+        st.session_state['mup'] = 0.0
 
     # Toggle for second mode
     st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
@@ -97,18 +97,18 @@ def main():
 
     if st.session_state['second_mode']:
         # Update default values when second mode is activated
-        st.session_state['h_dd'] = 1.0
-        st.session_state['h_uu'] = 4.0
-        st.session_state['h_ud'] = 75.0
-        st.session_state['mud'] = 0.0
-        st.session_state['muu'] = 20.0
+        st.session_state['h1'] = 1.0
+        st.session_state['h2'] = 4.0
+        st.session_state['h3'] = 75.0
+        st.session_state['mu0'] = 0.0
+        st.session_state['mup'] = 20.0
 
     # Now create the sliders with the possibly updated default values from session_state
-    h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, st.session_state['h_dd'])
-    h_uu = st.sidebar.slider(r'$h_{uu}\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h_uu'])
-    h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h_ud'])
-    mud = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
-    muu = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
+    h1 = st.sidebar.slider(r'$h_1\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{0}$', -100.0, 100.0, st.session_state['h1'])
+    h2 = st.sidebar.slider(r'$h_2\,(\mathrm{meV}): \mathrm{PEDOT}^{+}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h2'])
+    h3 = st.sidebar.slider(r'$h_3\,(\mathrm{meV}): \mathrm{PEDOT}^{0}\leftrightarrow \mathrm{PEDOT}^{+}$', -100.0, 100.0, st.session_state['h3'])
+    mu0 = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^0}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mu0'])
+    mup = st.sidebar.slider(r'$\mu^0_\mathrm{PEDOT^+}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mup'])
 
 
     if st.session_state['second_mode']:
@@ -128,46 +128,46 @@ def main():
 
     axs = [fig.add_subplot(gs[i, j]) for i in range(2) for j in range(3)]
 
-    y_H = H(psi_array, h_dd, h_uu, h_ud, mud, muu)
-    axs[0].plot(psi_array, y_H, linewidth=3, color = plt.cm.tab20b(0))
+    y_H = H(phi_array, h1, h2, h3, mu0, mup)
+    axs[0].plot(phi_array, y_H, linewidth=3, color = plt.cm.tab20b(0))
     axs[0].set_title(r'Enthalpy', fontsize=16)
-    axs[0].set_xlabel(r'$\psi$', fontsize=14)
+    axs[0].set_xlabel(r'$\phi$', fontsize=14)
     axs[0].set_ylabel(r'$H_0 + H_\mathrm{mix}$ (meV)', fontsize=14)
 
-    y_TS = TS(psi_array, T)
-    axs[1].plot(psi_array, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
+    y_TS = TS(phi_array, T)
+    axs[1].plot(phi_array, -y_TS, linewidth=3, color = plt.cm.tab20b(0))
     axs[1].set_title(r'Entropy', fontsize=16)
-    axs[1].set_xlabel(r'$\psi$', fontsize=14)
+    axs[1].set_xlabel(r'$\phi$', fontsize=14)
     axs[1].set_ylabel(r'$-TS_\mathrm{mix}$ (meV)', fontsize=14)
 
-    y_G = G(psi_array, T, h_dd, h_uu, h_ud, mud, muu)
-    axs[2].plot(psi_array, y_G, linewidth=3, color = plt.cm.tab20b(0))
+    y_G = G(phi_array, T, h1, h2, h3, mu0, mup)
+    axs[2].plot(phi_array, y_G, linewidth=3, color = plt.cm.tab20b(0))
     axs[2].set_title(r'Gibbs Free Energy', fontsize=16)
-    axs[2].set_xlabel(r'$\psi$', fontsize=14)
+    axs[2].set_xlabel(r'$\phi$', fontsize=14)
     axs[2].set_ylabel(r'$G$ (meV)', fontsize=14)
 
-    y_mu = mu(psi_array, T, h_dd, h_uu, h_ud, mud, muu)
-    slope = np.diff(y_mu) / np.diff(psi_array[:-1])  
+    y_mu = mu(phi_array, T, h1, h2, h3, mu0, mup)
+    slope = np.diff(y_mu) / np.diff(phi_array[:-1])  
     slope = np.append(slope, 0)  
 
     sign_change_indices = np.where(np.diff(np.sign(slope)))[0]
 
-    segments_psi = np.split(psi_array[:-1], sign_change_indices+1)
+    segments_phi = np.split(phi_array[:-1], sign_change_indices+1)
     segments_mu = np.split(y_mu, sign_change_indices+1)
 
-    for seg_psi, seg_mu in zip(segments_psi, segments_mu):
-        if (np.diff(seg_mu) / np.diff(seg_psi) < 0).any(): 
-            axs[4].plot(seg_psi, seg_mu, '--', linewidth=3, color = plt.cm.tab20b(0))
-            axs[5].plot(seg_mu, 1 - seg_psi, '--', linewidth=3, color = plt.cm.tab20b(0))
+    for seg_phi, seg_mu in zip(segments_phi, segments_mu):
+        if (np.diff(seg_mu) / np.diff(seg_phi) < 0).any(): 
+            axs[4].plot(seg_phi, seg_mu, '--', linewidth=3, color = plt.cm.tab20b(0))
+            axs[5].plot(seg_mu, 1 - seg_phi, '--', linewidth=3, color = plt.cm.tab20b(0))
         else:
-            axs[4].plot(seg_psi, seg_mu, linewidth=3, color = plt.cm.tab20b(0))
-            axs[5].plot(seg_mu, 1 - seg_psi, linewidth=3, color = plt.cm.tab20b(0))
+            axs[4].plot(seg_phi, seg_mu, linewidth=3, color = plt.cm.tab20b(0))
+            axs[5].plot(seg_mu, 1 - seg_phi, linewidth=3, color = plt.cm.tab20b(0))
 
 
 
     axs[4].set_title('Chem. Potential', fontsize=16)
-    axs[4].set_xlabel(r'$\psi$', fontsize=14)
-    axs[4].set_ylabel(r'${\partial G}/{\partial \psi} = \mu$ (meV)', fontsize=14)
+    axs[4].set_xlabel(r'$\phi$', fontsize=14)
+    axs[4].set_ylabel(r'${\partial G}/{\partial \phi} = \mu$ (meV)', fontsize=14)
 
     axs[5].set_title("Transfer Curve", fontsize=16)
     axs[5].set_xlabel(r'$V_\mathrm{GS}$ (mV)', fontsize=14)
