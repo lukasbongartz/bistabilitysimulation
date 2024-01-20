@@ -80,14 +80,22 @@ def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
 
-    # Initialize session state for the sliders if they don't exist
-    if 'second_mode' not in st.session_state:
-        st.session_state['second_mode'] = False
-        st.session_state['h_dd'] = 0.0
-        st.session_state['h_uu'] = 0.0
-        st.session_state['h_ud'] = 0.0
-        st.session_state['mud'] = 0.0
-        st.session_state['muu'] = 0.0
+    ## Initialize session state for the sliders if they don't exist
+    #if 'second_mode' not in st.session_state:
+    #    st.session_state['second_mode'] = False
+    #    st.session_state['h_dd'] = 0.0
+    #    st.session_state['h_uu'] = 0.0
+    #    st.session_state['h_ud'] = 0.0
+    #    st.session_state['mud'] = 0.0
+    #    st.session_state['muu'] = 0.0
+
+
+    st.session_state['second_mode'] = False
+    st.session_state['h_dd'] = 0.0
+    st.session_state['h_uu'] = 0.0
+    st.session_state['h_ud'] = 0.0
+    st.session_state['mud'] = 0.0
+    st.session_state['muu'] = 0.0
 
     # Toggle for second mode
     #st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
@@ -109,14 +117,15 @@ def main():
     h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
     mud = st.sidebar.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
     muu = st.sidebar.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
+    T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
 
 
-    if st.session_state['second_mode']:
-        alpha_init = 0.05
-        alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
-        T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 263.15, disabled=True)  # Disable the temperature slider
-    else:
-        T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
+#    if st.session_state['second_mode']:
+#        alpha_init = 0.05
+#        alpha = st.sidebar.slider(r'Gate Efficiency $\alpha$', 0.0, 1.0, alpha_init)
+#        T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 263.15, disabled=True)  # Disable the temperature slider
+#    else:
+#        T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
 
     font = {'size' : 14} 
     plt.rc('font', **font)
