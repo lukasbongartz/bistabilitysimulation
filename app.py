@@ -40,24 +40,24 @@ def main():
 
 
     col1, col2 = st.sidebar.beta_columns(2)
-    
+
     h_dd_slider = col1.slider(r'$h_{dd}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_dd'])
-    h_dd_input = col2.number_input(r'$h_{dd}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_dd_slider)
-    
+    #h_dd_input = col2.number_input(r'$h_{dd}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_dd_slider)
+
     h_uu_slider = col1.slider(r'$h_{uu}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_uu'])
-    h_uu_input = col2.number_input(r'$h_{uu}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_uu_slider)
-    
+    #h_uu_input = col2.number_input(r'$h_{uu}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_uu_slider)
+
     h_ud_slider = col1.slider(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
-    h_ud_input = col2.number_input(r'$h_{ud}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_ud_slider)
-    
+    #h_ud_input = col2.number_input(r'$h_{ud}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_ud_slider)
+
     mud_slider = col1.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV):$', -250.0, 250.0, st.session_state['mud'])
-    mud_input = col2.number_input(r'$\mu^0_\mathrm{d}\,(\mathrm{meV):$', min_value=-250.0, max_value=250.0, value=mud_slider)
-    
+    #mud_input = col2.number_input(r'$\mu^0_\mathrm{d}\,(\mathrm{meV):$', min_value=-250.0, max_value=250.0, value=mud_slider)
+
     muu_slider = col1.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV):$', -250.0, 250.0, st.session_state['muu'])
-    muu_input = col2.number_input(r'$\mu^0_\mathrm{u}\,(\mathrm{meV):$', min_value=-250.0, max_value=250.0, value=muu_slider)
-    
+    #muu_input = col2.number_input(r'$\mu^0_\mathrm{u}\,(\mathrm{meV):$', min_value=-250.0, max_value=250.0, value=muu_slider)
+
     T_slider = col1.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)
-    T_input = col2.number_input(r'$T\,(\mathrm{K})$', min_value=200.0, max_value=500.0, value=T_slider)
+    #T_input = col2.number_input(r'$T\,(\mathrm{K})$', min_value=200.0, max_value=500.0, value=T_slider)
 
 
 
