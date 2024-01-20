@@ -39,25 +39,20 @@ def main():
 
 
 
-    col1, col2 = st.sidebar.beta_columns(2)
+    # Now create the sliders with the possibly updated default values from session_state
+    h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_dd'])
+    h_uu = st.sidebar.slider(r'$h_{uu}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_uu'])
+    h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
+    mud = st.sidebar.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
+    muu = st.sidebar.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
+    T = st.sidebar.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
 
-    h_dd_slider = col1.slider(r'$h_{dd}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_dd'])
-    #h_dd_input = col2.number_input(r'$h_{dd}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_dd_slider)
-
-    h_uu_slider = col1.slider(r'$h_{uu}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_uu'])
-    #h_uu_input = col2.number_input(r'$h_{uu}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_uu_slider)
-
-    h_ud_slider = col1.slider(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
-    #h_ud_input = col2.number_input(r'$h_{ud}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=h_ud_slider)
-
-    mud_slider = col1.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV):$', -250.0, 250.0, st.session_state['mud'])
-    #mud_input = col2.number_input(r'$\mu^0_\mathrm{d}\,(\mathrm{meV):$', min_value=-250.0, max_value=250.0, value=mud_slider)
-
-    muu_slider = col1.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV):$', -250.0, 250.0, st.session_state['muu'])
-    #muu_input = col2.number_input(r'$\mu^0_\mathrm{u}\,(\mathrm{meV):$', min_value=-250.0, max_value=250.0, value=muu_slider)
-
-    T_slider = col1.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)
-    #T_input = col2.number_input(r'$T\,(\mathrm{K})$', min_value=200.0, max_value=500.0, value=T_slider)
+    #h_dd = st.sidebar.number_input(r'$h_{dd}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=st.session_state['h_dd'])
+    #h_uu = st.sidebar.number_input(r'$h_{uu}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=st.session_state['h_uu'])
+    #h_ud = st.sidebar.number_input(r'$h_{ud}\,(\mathrm{meV})$', min_value=-250.0, max_value=250.0, value=st.session_state['h_ud'])
+    #mud = st.sidebar.number_input(r'$\mu^0_\mathrm{d}\,(\mathrm{meV}):$', min_value=-250.0, max_value=250.0, value=st.session_state['mud'])
+    #muu = st.sidebar.number_input(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', min_value=-250.0, max_value=250.0, value=st.session_state['muu'])
+    #T = st.sidebar.number_input(r'$T\,(\mathrm{K})$', min_value=200.0, max_value=500.0, value=300.0)
 
 
 
