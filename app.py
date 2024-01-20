@@ -97,11 +97,8 @@ def main():
     st.session_state['mud'] = 0.0
     st.session_state['muu'] = 0.0
 
-    # Toggle for second mode
-    #st.session_state['second_mode'] = st.sidebar.checkbox('Show Experimental Data', value=st.session_state['second_mode'])
 
-    # Create a placeholder for the temperature slider
-    T_slider_placeholder = st.sidebar.empty()
+    #T_slider_placeholder = st.sidebar.empty()
 
 #    if st.session_state['second_mode']:
 #        # Update default values when second mode is activated
@@ -117,7 +114,7 @@ def main():
     h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
     mud = st.sidebar.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
     muu = st.sidebar.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
-    T = T_slider_placeholder.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
+    T = st.sidebar.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
 
 
 #    if st.session_state['second_mode']:
