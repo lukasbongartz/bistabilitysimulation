@@ -26,11 +26,10 @@ def G(psi, T, h_dd, h_uu, h_ud, mud, muu):
 def mu(psi, T, h_dd, h_uu, h_ud, mud, muu):
     return (np.diff(G(psi, T, h_dd, h_uu, h_ud, mud, muu))/np.diff(psi))
 
-
-def display_G(T, h_dd, h_uu, h_ud, mud, muu):
-    G_value = G(psi_array, T, h_dd, h_uu, h_ud, mud, muu)
-    st.write(f'Gibbs Free Energy: {G_value}')
-
+def lambda_value(h_dd, h_uu, h_ud, T, psi_lambda):
+    value = (h_dd + h_uu - 2*h_ud)/(kB*T/e*1000) * psi_lambda*(psi_lambda-1)
+    value_rn = np.round(value, 2)
+    return value_rn
 
 def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
@@ -63,9 +62,6 @@ def main():
     #muu = st.sidebar.number_input(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
     #T = st.sidebar.number_input(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0) 
 
-    display_G(T, h_dd, h_uu, h_ud, mud, muu)
-
-
     font = {'size' : 14} 
     plt.rc('font', **font)
     fig = plt.figure(figsize=(15, 10))
@@ -94,6 +90,18 @@ def main():
     axs[2].set_xlabel(r'$\psi$', fontsize=14)
     axs[2].set_ylabel(r'$G$ (meV)', fontsize=14)
 
+
+    psi_lambda = 0.5
+    lambda_val = lambda_value(h_dd, h_uu, h_ud, T, psi_lambda)
+    textstr = f'$\lambda = {lambda_val}$'
+    axs[3].text(0.5, 0.5, textstr, transform=axs[3].transAxes, fontsize=14,
+        verticalalignment='center', horizontalalignment='center', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+    axs[3].axis('off')
+    
+
+
+
+
     y_mu = mu(psi_array, T, h_dd, h_uu, h_ud, mud, muu)
     slope = np.diff(y_mu) / np.diff(psi_array[:-1])  
     slope = np.append(slope, 0)  
@@ -113,6 +121,10 @@ def main():
 
 
 
+    
+
+
+
     axs[4].set_title('Chem. Potential', fontsize=16)
     axs[4].set_xlabel(r'$\psi$', fontsize=14)
     axs[4].set_ylabel(r'${\partial G}/{\partial \psi} = \mu$ (meV)', fontsize=14)
@@ -122,9 +134,6 @@ def main():
     axs[5].set_ylabel(r'$-I_\mathrm{D}$ (norm.)', fontsize=14)
 
         
-
-    # Remove the sixth plot
-    fig.delaxes(axs[3])
 
     # Format all axes (even if empty)
     for i in range(6):
