@@ -47,6 +47,7 @@ def main():
     muu = st.sidebar.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
     T = st.sidebar.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
 
+    # make in second mode
     h_dd = st.sidebar.number_input(r'$h_{dd}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_dd'])
     h_uu = st.sidebar.number_input(r'$h_{uu}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_uu'])
     h_ud = st.sidebar.number_input(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
