@@ -27,6 +27,11 @@ def mu(psi, T, h_dd, h_uu, h_ud, mud, muu):
     return (np.diff(G(psi, T, h_dd, h_uu, h_ud, mud, muu))/np.diff(psi))
 
 
+def display_G(T, h_dd, h_uu, h_ud, mud, muu):
+    G_value = G(psi_array, T, h_dd, h_uu, h_ud, mud, muu)
+    st.write(f'Gibbs Free Energy: {G_value}')
+
+
 def main():
     st.set_page_config(page_title='Bistability', page_icon = "🧠", initial_sidebar_state = 'auto')
     st.sidebar.header('Parameters')
@@ -58,6 +63,7 @@ def main():
     #muu = st.sidebar.number_input(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
     #T = st.sidebar.number_input(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0) 
 
+    display_G(T, h_dd, h_uu, h_ud, mud, muu)
 
 
     font = {'size' : 14} 
