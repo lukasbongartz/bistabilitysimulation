@@ -9,7 +9,7 @@ import pandas as pd
 
 kB=1.380e-23
 e=1.602e-19
-psi_array = np.arange(0,1.001,0.001)
+psi_array = np.arange(0,1.01,0.01)
 
 mud = 0
 muu = 0
@@ -43,9 +43,9 @@ def main():
 
 
     # Now create the sliders with the possibly updated default values from session_state
-    h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_dd'])
-    h_uu = st.sidebar.slider(r'$h_{uu}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_uu'])
-    h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV})$', -250.0, 250.0, st.session_state['h_ud'])
+    h_dd = st.sidebar.slider(r'$h_{dd}\,(\mathrm{meV})$', -100.0, 100.0, st.session_state['h_dd'])
+    h_uu = st.sidebar.slider(r'$h_{uu}\,(\mathrm{meV})$',-100.0, 100.0, st.session_state['h_uu'])
+    h_ud = st.sidebar.slider(r'$h_{ud}\,(\mathrm{meV})$', -100.0, 100.0, st.session_state['h_ud'])
     #mud = st.sidebar.slider(r'$\mu^0_\mathrm{d}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['mud'])
     #muu = st.sidebar.slider(r'$\mu^0_\mathrm{u}\,(\mathrm{meV}):$', -250.0, 250.0, st.session_state['muu'])
     T = st.sidebar.slider(r'$T\,(\mathrm{K})$', 200.0, 500.0, 300.0)  # Enable the temperature slider when not in second mode
