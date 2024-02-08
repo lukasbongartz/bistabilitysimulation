@@ -145,7 +145,7 @@ def main():
         axs[i].grid(True,'major',alpha=0.2)
 
 
-    st.sidebar.markdown("Lukas Bongartz, 2023")
+    st.sidebar.markdown("Lukas Bongartz, 2024")
 
     # Adjust spacing between subplots
     fig.subplots_adjust(hspace = 0.5, wspace = 0.5)
