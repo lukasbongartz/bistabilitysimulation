@@ -32,8 +32,8 @@ def lambda_value(h_dd, h_uu, h_ud, T, psi_lambda):
     return value_rn
 
 # Parameter ranges
-T_range = np.linspace(200, 500, 100)  # Temperature range
-h_ud_range = np.linspace(-50, 250, 100)  # hud range
+T_range = np.linspace(200, 500, 1000)  # Temperature range
+h_ud_range = np.linspace(-50, 250, 1000)  # hud range
 h_dd = h_uu = 0  # Fixed for simplicity
 
 lambda_vals = []
