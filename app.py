@@ -155,17 +155,17 @@ def main():
 #    axs[5].set_xlabel(r'$\lambda$')
 #    axs[5].set_ylabel(r'$\psi_0$')
 #    axs[5].set_title('Bifurcation Diagram')
-
-    # Read bifurcation simulation data from a CSV file
-    bifurcation_data = pd.read_csv('bifurcation_data.csv')  # Update the path as necessary
-    lambda_vals = bifurcation_data['lambda'].values
-    psi_min_vals = bifurcation_data['psi_min'].values
-
-    #axs[5].axvline(x=lambda_val, color=plt.cm.tab20c(4), linestyle='-', lw=3)
-    axs[5].scatter(lambda_vals, psi_min_vals, s=5, color=plt.cm.tab20b(0))
-    axs[5].set_xlabel(r'$\lambda$')
-    axs[5].set_ylabel(r'$\psi_0$')
-    axs[5].set_title('Bifurcation Diagram')
+#
+#    # Read bifurcation simulation data from a CSV file
+#    bifurcation_data = pd.read_csv('bifurcation_data.csv')  # Update the path as necessary
+#    lambda_vals = bifurcation_data['lambda'].values
+#    psi_min_vals = bifurcation_data['psi_min'].values
+#
+#    #axs[5].axvline(x=lambda_val, color=plt.cm.tab20c(4), linestyle='-', lw=3)
+#    axs[5].scatter(lambda_vals, psi_min_vals, s=5, color=plt.cm.tab20b(0))
+#    axs[5].set_xlabel(r'$\lambda$')
+#    axs[5].set_ylabel(r'$\psi_0$')
+#    axs[5].set_title('Bifurcation Diagram')
 
 
 
