@@ -157,7 +157,7 @@ def main():
 #    axs[5].set_title('Bifurcation Diagram')
 
     # Read bifurcation simulation data from a CSV file
-    bifurcation_data = pd.read_csv('BistabilitySimulation/bifurcation_data.csv')  # Update the path as necessary
+    bifurcation_data = pd.read_csv('bifurcation_data.csv')  # Update the path as necessary
     lambda_vals = bifurcation_data['lambda'].values
     psi_min_vals = bifurcation_data['psi_min'].values
 
