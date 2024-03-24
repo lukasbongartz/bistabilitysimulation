@@ -152,13 +152,13 @@ def main():
     axs[4].set_ylabel(r'$-I_\mathrm{D}$ (norm.)', fontsize=14)
 
 
-#    axs[5].axvline(x=lambda_val, color=plt.cm.tab20c(4), linestyle='-', lw = 3)
+    axs[5].axvline(x=lambda_val, color=plt.cm.tab20c(4), linestyle='-', lw = 3)
     axs[5].scatter(lambda_vals, psi_min_vals, s=5, color = plt.cm.tab20b(0))
 #    axs[5].text(lambda_val, -axs[5].get_ylim()[1]*0.35, f'$\lambda = {lambda_val}$', color='k', ha='center', va = 'center', fontsize=16,
 #                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
-#    axs[5].set_xlabel(r'$\lambda$')
-#    axs[5].set_ylabel(r'$\psi_0$')
-#    axs[5].set_title('Bifurcation Diagram')
+    axs[5].set_xlabel(r'$\lambda$')
+    axs[5].set_ylabel(r'$\psi_0$')
+    axs[5].set_title('Bifurcation Diagram')
 #
 #    # Read bifurcation simulation data from a CSV file
 
